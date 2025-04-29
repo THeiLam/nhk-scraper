@@ -2,7 +2,8 @@ name: Run NHK Scraper
 
 on:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 8 * * *' # Scheduled to run daily at 8 AM UTC
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   scrape:
