@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import re
 import json
@@ -60,12 +61,24 @@ def parse_articles(driver, html_content, limit):
 
 # Main function to run the scraper
 def main():
+    # URL of the NHK Easy News website
     url = 'https://www3.nhk.or.jp/news/easy/'
+
+    # Path to ChromeDriver (adjust for GitHub Actions or local environment)
     service = Service('/usr/local/bin/chromedriver')  # Use the ChromeDriver path for GitHub Actions
-    driver = webdriver.Chrome(service=service)
+
+    # Configure Chrome options
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')  # Run in headless mode (no GUI)
+    chrome_options.add_argument('--no-sandbox')  # Required for CI environments
+    chrome_options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+    chrome_options.add_argument('--user-data-dir=/tmp/chrome-user-data')  # Set a unique user data directory
+
+    # Initialize the Chrome WebDriver
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
-        # Set the number of articles to scrape to 10
+        # Set the number of articles to scrape
         scrape_count = 10
 
         # Fetch the main page content
@@ -83,9 +96,11 @@ def main():
 
         print("Scraping completed. Results saved to output.json.")
     except Exception as e:
+        # Handle any exceptions that occur during scraping
         print(f"An error occurred: {e}")
     finally:
-        driver.quit()  # Ensure the browser is closed properly
+        # Ensure the browser is closed properly
+        driver.quit()
 
 if __name__ == "__main__":
     main()
