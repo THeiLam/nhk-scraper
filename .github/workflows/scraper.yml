@@ -29,7 +29,7 @@ jobs:
       # Step 4: Install Google Chrome (specific version)
       - name: Install Google Chrome
         run: |
-          wget -N "https://storage.googleapis.com/chrome-for-testing/135.0.7049.114/linux64/chrome-linux64.zip"
+          wget -N "https://storage.googleapis.com/chrome-for-testing-public/135.0.7049.114/linux64/chrome-linux64.zip"
           unzip chrome-linux64.zip
           sudo mv chrome-linux64 /opt/google/chrome
           sudo ln -sf /opt/google/chrome/chrome /usr/bin/google-chrome
