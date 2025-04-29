@@ -46,3 +46,14 @@ jobs:
       # Step 6: Run scraper
       - name: Run scraper
         run: python src/scraper.py
+
+      # Step 7: Commit and push output.json
+      - name: Commit and push output.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add output.json
+          git commit -m "Update output.json [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
