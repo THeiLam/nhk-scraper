@@ -61,7 +61,7 @@ def parse_articles(driver, html_content, limit):
 # Main function to run the scraper
 def main():
     url = 'https://www3.nhk.or.jp/news/easy/'
-    service = Service(r'D:\tool\Chrome Driver\chromedriver-win64\chromedriver.exe')  # Update with the correct path
+    service = Service('/usr/local/bin/chromedriver')  # Use the ChromeDriver path for GitHub Actions
     driver = webdriver.Chrome(service=service)
 
     try:
